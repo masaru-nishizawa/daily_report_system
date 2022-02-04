@@ -11,8 +11,8 @@ import models.Employee;
  * 従業員データのDTOモデル⇔Viewモデルの変換を行うクラス
  *
  */
-
 public class EmployeeConverter {
+
     /**
      * ViewモデルのインスタンスからDTOモデルのインスタンスを作成する
      * @param ev EmployeeViewのインスタンス
@@ -38,6 +38,7 @@ public class EmployeeConverter {
                                 ? JpaConst.EMP_DEL_TRUE
                                 : JpaConst.EMP_DEL_FALSE);
     }
+
     /**
      * DTOモデルのインスタンスからViewモデルのインスタンスを作成する
      * @param e Employeeのインスタンス
@@ -48,23 +49,24 @@ public class EmployeeConverter {
         if(e == null) {
             return null;
         }
+
         return new EmployeeView(
                 e.getId(),
                 e.getCode(),
                 e.getName(),
                 e.getPassword(),
                 e.getAdminFlag() == null
-                    ? null
-                    : e.getAdminFlag() == JpaConst.ROLE_ADMIN
-                        ?AttributeConst.ROLE_ADMIN.getIntegerValue()
-                        :AttributeConst.ROLE_GENERAL.getIntegerValue(),
+                        ? null
+                        : e.getAdminFlag() == JpaConst.ROLE_ADMIN
+                                ? AttributeConst.ROLE_ADMIN.getIntegerValue()
+                                : AttributeConst.ROLE_GENERAL.getIntegerValue(),
                 e.getCreatedAt(),
                 e.getUpdatedAt(),
                 e.getDeleteFlag() == null
-                    ? null
-                    : e.getDeleteFlag() == JpaConst.EMP_DEL_TRUE
-                        ?AttributeConst.DEL_FLAG_TRUE.getIntegerValue()
-                        :AttributeConst.DEL_FLAG_FALSE.getIntegerValue());
+                        ? null
+                        : e.getDeleteFlag() == JpaConst.EMP_DEL_TRUE
+                                ? AttributeConst.DEL_FLAG_TRUE.getIntegerValue()
+                                : AttributeConst.DEL_FLAG_FALSE.getIntegerValue());
     }
 
     /**

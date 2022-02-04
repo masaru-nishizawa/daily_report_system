@@ -23,31 +23,30 @@ import lombok.Setter;
  */
 @Table(name = JpaConst.TABLE_EMP)
 @NamedQueries({
-        @NamedQuery(
-                name = JpaConst.Q_EMP_GET_ALL,
-                query = JpaConst.Q_EMP_GET_ALL_DEF), //全ての従業員をidの降順に取得する
-        @NamedQuery(
-                name = JpaConst.Q_EMP_COUNT,
-                query = JpaConst.Q_EMP_COUNT_DEF), //全ての従業員の件数を取得する
-        @NamedQuery(
-                name = JpaConst.Q_EMP_COUNT_RESISTERED_BY_CODE,
-                query = JpaConst.Q_EMP_COUNT_RESISTERED_BY_CODE_DEF), //社員番号とハッシュ化済パスワードを条件に未削除の従業員を取得する
-        @NamedQuery(
-                name = JpaConst.Q_EMP_GET_BY_CODE_AND_PASS,
-                query = JpaConst.Q_EMP_GET_BY_CODE_AND_PASS_DEF) //指定した社員番号を保持する従業員の件数を取得する
-
+    @NamedQuery(
+            name = JpaConst.Q_EMP_GET_ALL,
+            query = JpaConst.Q_EMP_GET_ALL_DEF),
+    @NamedQuery(
+            name = JpaConst.Q_EMP_COUNT,
+            query = JpaConst.Q_EMP_COUNT_DEF),
+    @NamedQuery(
+            name = JpaConst.Q_EMP_COUNT_RESISTERED_BY_CODE,
+            query = JpaConst.Q_EMP_COUNT_RESISTERED_BY_CODE_DEF),
+    @NamedQuery(
+            name = JpaConst.Q_EMP_GET_BY_CODE_AND_PASS,
+            query = JpaConst.Q_EMP_GET_BY_CODE_AND_PASS_DEF)
 })
+
 @Getter //全てのクラスフィールドについてgetterを自動生成する(Lombok)
 @Setter //全てのクラスフィールドについてsetterを自動生成する(Lombok)
 @NoArgsConstructor //引数なしコンストラクタを自動生成する(Lombok)
 @AllArgsConstructor //全てのクラスフィールドを引数にもつ引数ありコンストラクタを自動生成する(Lombok)
 @Entity
-public class Employee{
+public class Employee {
 
     /**
      * id
      */
-
     @Id
     @Column(name = JpaConst.EMP_COL_ID)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,7 +55,7 @@ public class Employee{
     /**
      * 社員番号
      */
-    @Column(name = JpaConst.EMP_COL_CODE, nullable = false, unique = true) //unique=true でIDの重複を不許可にする
+    @Column(name = JpaConst.EMP_COL_CODE, nullable = false, unique = true)
     private String code;
 
     /**

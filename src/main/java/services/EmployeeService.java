@@ -15,7 +15,6 @@ import utils.EncryptUtil;
 /**
  * 従業員テーブルの操作に関わる処理を行うクラス
  */
-
 public class EmployeeService extends ServiceBase {
 
     /**
@@ -23,25 +22,22 @@ public class EmployeeService extends ServiceBase {
      * @param page ページ数
      * @return 表示するデータのリスト
      */
-
-    public List<EmployeeView> getPerPage(int page){
+    public List<EmployeeView> getPerPage(int page) {
         List<Employee> employees = em.createNamedQuery(JpaConst.Q_EMP_GET_ALL, Employee.class)
-                .setFirstResult(JpaConst.ROW_PER_PAGE*(page-1))
+                .setFirstResult(JpaConst.ROW_PER_PAGE * (page - 1))
                 .setMaxResults(JpaConst.ROW_PER_PAGE)
                 .getResultList();
 
         return EmployeeConverter.toViewList(employees);
     }
 
-
-
-/**
- * 従業員テーブルのデータの件数を取得し、返却する
- * @return 従業員テーブルのデータの件数
- */
+    /**
+     * 従業員テーブルのデータの件数を取得し、返却する
+     * @return 従業員テーブルのデータの件数
+     */
     public long countAll() {
-        long empCount = (long)em.createNamedQuery(JpaConst.Q_EMP_COUNT,Long.class)
-                                 .getSingleResult();
+        long empCount = (long) em.createNamedQuery(JpaConst.Q_EMP_COUNT, Long.class)
+                .getSingleResult();
 
         return empCount;
     }
@@ -56,18 +52,20 @@ public class EmployeeService extends ServiceBase {
     public EmployeeView findOne(String code, String plainPass, String pepper) {
         Employee e = null;
         try {
-          //パスワードのハッシュ化
-            String pass = EncryptUtil.getPasswordEncrypt(plainPass,pepper);
+            //パスワードのハッシュ化
+            String pass = EncryptUtil.getPasswordEncrypt(plainPass, pepper);
 
-          //社員番号とハッシュ化済パスワードを条件に未削除の従業員を1件取得する
-
-            e = em.createNamedQuery(JpaConst.Q_EMP_GET_BY_CODE_AND_PASS,Employee.class)
-                    .setParameter(JpaConst.JPQL_PARM_CODE,code)
-                    .setParameter(JpaConst.JPQL_PARM_PASSWORD,pass)
+            //社員番号とハッシュ化済パスワードを条件に未削除の従業員を1件取得する
+            e = em.createNamedQuery(JpaConst.Q_EMP_GET_BY_CODE_AND_PASS, Employee.class)
+                    .setParameter(JpaConst.JPQL_PARM_CODE, code)
+                    .setParameter(JpaConst.JPQL_PARM_PASSWORD, pass)
                     .getSingleResult();
-        }catch(NoResultException ex) {
+
+        } catch (NoResultException ex) {
         }
+
         return EmployeeConverter.toView(e);
+
     }
 
     /**
