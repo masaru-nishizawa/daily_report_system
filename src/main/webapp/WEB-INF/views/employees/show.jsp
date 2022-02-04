@@ -3,6 +3,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="constants.ForwardConst" %>
 <%@ page import="constants.AttributeConst" %>
+
+<c:set var="actEmp" value="${ForwardConst.ACT_EMP.getValue()}" />
+<c:set var = "commEdit" value="${ForwardConst.CMD_EDIT.getValue()}"/>
+<c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
+
 <c:import url="/WEB-INF/views/layout/app.jsp">
     <c:param name="content">
 
